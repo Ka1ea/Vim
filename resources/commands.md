@@ -1,6 +1,6 @@
 # Commands 
 
-vaBV - select {} block
+vaBV - select {} block\
 xp - swap 2 characters
 V$% - select function, hover on function name
 yy,c p - copy, comment, paste
