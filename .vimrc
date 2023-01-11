@@ -16,6 +16,7 @@ set nocompatible " makes it vim instead of Vi
 
 
 " PLUGINS ---------------------------------------------------------------- {{{
+
 call plug#begin()
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
