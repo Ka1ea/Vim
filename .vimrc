@@ -17,17 +17,25 @@ set nocompatible " makes it vim instead of Vi
 
 " PLUGINS ---------------------------------------------------------------- {{{
 
+":PlugInstall"
 call plug#begin()
 Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdcommenter' 
+" , . "
 call plug#end()
 
 "let g:AutoPairsShortcutToggle =
+" Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+"inoremap <leader>cc:, :, 
 
 " }}}
 

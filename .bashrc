@@ -1,3 +1,5 @@
+# Strip permissions from group and others when creating new files
+umask 077
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -78,7 +80,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -105,6 +106,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# load bash functions
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -118,4 +125,7 @@ fi
 
 
 # enable quick search
-export CDPATH=".:/mnt/c/Users/kalea/OneDrive/Documents:/mnt/c/Users/kalea/OneDrive/Documents/github"
+export CDPATH=".:~/cs240"
+# Add cs240/bin to PATH
+export PATH=$PATH:~cs240/bin
+
