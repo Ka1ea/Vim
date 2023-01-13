@@ -52,6 +52,7 @@ vnoremap <C-j> :m '>+1<CR>gv=gv
 " swap : and ;
 nnoremap ; :
 nnoremap : ;
+nnoremap ' ,;
 
 " remove whitespace
 nnoremap <leader>rw :%s/\s\+$//e<CR>
