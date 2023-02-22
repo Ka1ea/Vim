@@ -128,4 +128,4 @@ fi
 export CDPATH=".:~/cs240"
 # Add cs240/bin to PATH
 export PATH=$PATH:~cs240/bin
-
+# 5 lines

@@ -1,4 +1,6 @@
 # Vim
+- update files
+- cp ~/.vimrc ~/.bashrc ~/.bash_aliases ~/.bash_functions ./
 ## Plugins
 `reminder leader is [,]`
 ### Vim autopairs

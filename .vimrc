@@ -148,6 +148,8 @@ set list listchars=tab:»·,trail:•,extends:#,nbsp:.
 set autoindent expandtab                          " audo indentation and spaces, not tabs
 filetype indent plugin on                         " follow filetype specific indent rules
 set shiftwidth=2 softtabstop=2 tabstop=2          " 1 tab = 2 spaces
+set splitright                                    " splits right with vs"
+set splitbelow                                    " splits below with hs"
 
 set cursorline                                    " highlight bar show cursor position
 set scrolloff=3                                   " always have 5 lines below cursor
@@ -163,8 +165,6 @@ set ttymouse=sgr                                  " (wsl windows) allows clickin
 set clipboard=unnamed,unnamedplus                 " enable clipboard
 
 set undofile undodir=~/.vim/undo undolevels=9999 undoreload=100000
-                                                  " woah it kind of works
-                                                  " wierd
                                                   " saves undo in undodir, :earlier/later (5s, 5m, 5f (5 saves ago))
                                                   " https://dev.to/iggredible/learn-how-to-use-vim-undo-to-time-travel-3l73
 set history=1000                                  " more undo history
