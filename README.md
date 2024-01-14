@@ -9,3 +9,7 @@
 - <leader>cs sexy comment with pretty stars
 ### minimal plug
 - :PlugIhstall install plugs
+
+### Useful command reminders
+`cd -` to go back to prev dir
+`find -name "*" -not -type d`
