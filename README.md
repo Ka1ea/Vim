@@ -1,4 +1,5 @@
 # Vim
+- ERROR debugging: vim -u NONE ~/.vimrc
 - update files
 - cp ~/.vimrc ~/.bashrc ~/.bash_aliases ~/.bash_functions ./
 ## Plugins
