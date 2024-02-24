@@ -12,6 +12,7 @@ Installation steps (windows ed):
 5) mkdir ~/vimfiles/undo
 
 command:
+
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
     ni $HOME/vimfiles/autoload/plug.vim -Force
 `
