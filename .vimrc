@@ -1,12 +1,9 @@
 set nocompatible " makes it vim instead of Vi
 
-" @TODO compile the plugins to add vim auto-pairs, nerdcomementer
-" - reserach what vim polygot is
-" - fix the scrolling and highlight issue
-" - debug time machine for undo :( sad
-" - add wildignore
-" https://www.fprintf.net/vimCheatSheet.html
-" version 10/18/2022
+" version 2/23/24
+" Linux ver
+" Kalea Gin :)
+" Dont forget to make the undodir in ~/.vim
 
 
 " [zo] opens single fold
@@ -18,13 +15,12 @@ set nocompatible " makes it vim instead of Vi
 " PLUGINS ---------------------------------------------------------------- {{{
 
 ":PlugInstall"
-
-
-call_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+" AFTER FIRST TIME DELETE THIS
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin()
 Plug 'joshdick/onedark.vim'
@@ -32,7 +28,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
-" , . "
+Plug 'tpope/vim-surround'
 call plug#end()
 
 "let g:AutoPairsShortcutToggle =
@@ -43,7 +39,6 @@ let g:NERDToggleCheckAllLines = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 
-"inoremap <leader>cc:, :,
 
 " }}}
 
@@ -67,17 +62,8 @@ nnoremap <leader>rw :%s/\s\+$//e<CR>
 " first press of 0 makes it go to end of indentation then to end
 nnoremap <expr> <silent> 0 col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
 
+" DEFINE GLOBAL MACROS HERE
 " type ctrl - R [key] to restore macro
-" macro to write function comments
-let @f='b%bveyOO/*/jj/(%e%A /* () */hhhhhp$0mz%bv%0y/function definitions}OpA;`z/{;nohk'
-" writes comments without function definition up top
-let @g='b%bveyOO/*/jj/(%e%A /* () */hhhhhp$0mz/{;nohk'
-
-" swap elements in array
-let @s='lv%%hdlplv/]hd%hhp/[n'
-
-" change const int blah = 3; to defines
-let @c='dwdwveUi#define eedwi(lldwhhp%%Ai�kb�kbj0'
 " }}}
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
@@ -88,59 +74,28 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
-" Changes cursor from blue to white from insert to non insert
-if &term =~ "xterm\\|rxvt"
-  " use an blue cursor in insert mode
-  let &t_SI = "\<Esc>]12;aqua\x7"
-  " use a white cursor otherwise
-  let &t_EI = "\<Esc>]12;white\x7"
-  silent !echo -ne "\033]12;white\007"
-  " reset cursor when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
-  " use \003]12;gray\007 for gnome-terminal and rxvt up to version 9.21
-endif
-
-if &term =~ '^xterm\\|rxvt'
-  " solid underscore
-  let &t_SI .= "\<Esc>[4 q"
-  " solid block
-  let &t_EI .= "\<Esc>[2 q"
-  " 1 or 0 -> blinking block
-  " 3 -> blinking underscore
-  " Recent versions of xterm (282 or above) also support
-  " 5 -> blinking vertical bar
-  " 6 -> solid vertical bar
-endif
 
 " }}}
 
 " STATUS LINE ------------------------------------------------------------ {{{
-"let g:airline_powerline_fonts = 1        enable if has powerline :(
+let g:airline_powerline_fonts = 1        " "enable if has powerline :(
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:airline_symbols.space = "\ua0"
-let g:airline_symbols.colnr = ' ㏇:'
-let g:airline_symbols.colnr = ' ℅:'
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = ' ␊:'
-let g:airline_symbols.linenr = ' ␤:'
+"let g:airline#extensions#tabline#enabled = 1
+
+let g:airline_left_sep = '' "»
+let g:airline_left_sep = '' "▶
+let g:airline_right_sep = '' "«
+let g:airline_right_sep = '' "◀
+let g:airline_symbols.linenr = '␊'
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.maxlinenr = '㏑'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
 
   " }}}
 
@@ -154,7 +109,7 @@ set showcmd                                       " see commands being typed
 set term=xterm-256color                           " terminal type
 set showmatch                                     " show matching brackets
 scriptencoding utf-8
-set encoding=utf-8
+set encoding=utf-8                                 " enable utf8 support
 
 "preformance tuning (activate if slow connection)
 set lazyredraw                                    " only redraw when necesary, not update all the time
@@ -185,15 +140,12 @@ set ttymouse=sgr                                  " (wsl windows) allows clickin
 set clipboard=unnamed,unnamedplus                 " enable clipboard
 
 set undofile undodir=~/.vim/undo undolevels=9999 undoreload=100000
-                                                  " woah it kind of works
-                                                  " wierd
                                                   " saves undo in undodir, :earlier/later (5s, 5m, 5f (5 saves ago))
                                                   " https://dev.to/iggredible/learn-how-to-use-vim-undo-to-time-travel-3l73
 set history=1000                                  " more undo history
-set nobackup noswapfile nowritebackup             " disable backup/swap files
+"set nobackup noswapfile nowritebackup             " disable backup/swap files
 set autoread                                      " reload external file changes
 set backspace=indent,eol,start                    " backspace work as expected
-set encoding=utf8                                 " enable utf8 support
 set hidden                                        " hides buffers, doesn't close
 "set formatoptions+=j                              " delete comment characters when joining lines.
 "set confirm                                       " confirms if you want to close an unsaved file
